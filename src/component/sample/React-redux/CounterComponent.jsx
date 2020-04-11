@@ -1,13 +1,13 @@
 import React from "react";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
-import {addNumber, reduceNumber} from "./counterActions";
+import {addNumber, reduceNumber, resetNumber} from "./counterActions";
 
 class counterElement extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      number: 2,
+      number: 10,
     };
     this.onChangeNumber = this.onChangeNumber.bind(this);
   }
@@ -19,7 +19,7 @@ class counterElement extends React.Component {
   }
 
   render() {
-    const {count, addNumber, reduceNumber} = this.props;
+    const {count, addNumber, reduceNumber, resetNumber} = this.props;
     const {number} = this.state;
     return (
       <div>
@@ -42,6 +42,13 @@ class counterElement extends React.Component {
           }}
           value="-"
         />
+        <input
+          type="button"
+          onClick={() => {
+            resetNumber();
+          }}
+          value="reset"
+        />
       </div>
     );
   }
@@ -56,7 +63,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   // 定义了这个component可以操作到的action方法
-  return bindActionCreators({addNumber, reduceNumber}, dispatch);
+  return bindActionCreators({addNumber, reduceNumber, resetNumber}, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(counterElement);

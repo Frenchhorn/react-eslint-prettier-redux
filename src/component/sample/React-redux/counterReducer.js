@@ -1,4 +1,4 @@
-import {ADD_NUMBER, REDUCE_NUMBER} from "./actionsType";
+import {ADD_NUMBER, REDUCE_NUMBER, RESET} from "./actionsType";
 
 const initialState = {
   count: 0,
@@ -15,6 +15,11 @@ function countReducer(state = initialState, actions) {
       return {
         ...state,
         count: state.count - parseInt(actions.number, 10),
+      };
+    case RESET:
+      return {
+        ...state,
+        count: 0,
       };
     default:
       return state;

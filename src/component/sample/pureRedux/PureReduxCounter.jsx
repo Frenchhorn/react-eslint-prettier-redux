@@ -4,6 +4,7 @@ import {createStore, combineReducers, bindActionCreators} from "redux";
 // define constants
 const ADD_NUMBER = "ADD_NUMBER";
 const REDUCE_NUMBER = "REDUCE_NUMBER";
+const RESET = "RESET";
 
 // reducer
 const initialState = {
@@ -22,6 +23,11 @@ function countReducer(state = initialState, actions) {
         ...state,
         count: state.count - parseInt(actions.number, 10),
       };
+    case RESET:
+      return {
+        ...state,
+        count: 0,
+      };
     default:
       return state;
   }
@@ -39,6 +45,12 @@ function reduceNumber(number) {
   return {
     type: REDUCE_NUMBER,
     number,
+  };
+}
+
+function resetNumber() {
+  return {
+    type: RESET,
   };
 }
 
@@ -75,8 +87,12 @@ class Counter extends React.Component {
   }
 
   onChangeNumber(event) {
+    const val = Number(event.target.value);
+    if (isNaN(val)) {
+      return;
+    }
     this.setState({
-      number: event.target.value,
+      number: val,
     });
   }
 
@@ -103,6 +119,13 @@ class Counter extends React.Component {
             store.dispatch(reduceNumber(number));
           }}
           value="-"
+        />
+        <input
+          type="button"
+          onClick={() => {
+            store.dispatch(resetNumber());
+          }}
+          value="reset"
         />
       </div>
     );

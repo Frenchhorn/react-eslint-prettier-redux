@@ -1,4 +1,4 @@
-import {ADD_NUMBER, REDUCE_NUMBER} from "./actionsType";
+import {ADD_NUMBER, REDUCE_NUMBER, RESET} from "./actionsType";
 
 export function addNumber(number) {
   return {
@@ -11,6 +11,12 @@ export function reduceNumber(number) {
   return {
     type: REDUCE_NUMBER,
     number,
+  };
+}
+
+export function resetNumber() {
+  return {
+    type: RESET,
   };
 }
 
